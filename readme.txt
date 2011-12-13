@@ -1,3 +1,21 @@
+prefuse Vienna edition README
+
+This project is a fork of prefuse (http://prefuse.org) and maintained by the
+Information Engineering Group at Vienna University of Technology, Austria 
+(http://ieg.ifs.tuwien.ac.at/). 
+
+We plan to do two things in this fork:
+(a) We fix bugs or apply patches necessary to extend prefuse in our projects.
+These changes can be reintegrated with upstream via pull requests.
+
+(b) Occasionally we upgrade prefuse code to make it aware of "new" Java 
+features such as generics. These changes might stay in this fork.
+  
+
+----------------------------------------------------------------------
+ORIGINAL README of upstream prefuse project 
+----------------------------------------------------------------------
+
 prefuse README
 beta release - initial release february 2006, current release 2007.10.20
 
