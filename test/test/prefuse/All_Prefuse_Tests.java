@@ -1,11 +1,14 @@
 package test.prefuse;
 
+import java.util.Locale;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 public class All_Prefuse_Tests {
 
     public static Test suite() {
+        Locale.setDefault(Locale.US);
         TestSuite suite = new TestSuite("Test for test.prefuse");
         //$JUnit-BEGIN$
         suite.addTest(test.prefuse.data.All_PrefuseData_Tests.suite());
