@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import javax.swing.event.TableModelEvent;
 
@@ -897,6 +898,9 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      */
     public Object get(int row, String field) {
         int col = getColumnNumber(field);
+        // otherwise getColumn(col) would throw an obscure ArrayIndexOutofBoundsException
+        if (col == -1)
+        	throw new NoSuchElementException("Column not found: " + field);
         row = getColumnRow(row, col);
         return getColumn(col).get(row);
     }
