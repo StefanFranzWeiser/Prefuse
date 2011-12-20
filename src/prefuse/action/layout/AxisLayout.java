@@ -108,6 +108,20 @@ public class AxisLayout extends Layout {
         return m_field;
     }
     
+    protected boolean isModelSet() {
+        return this.m_modelSet;
+    }
+    
+    /**
+     * Set the range model determining the span of the axis without treating 
+     * this model as user-defined. This method can be used by subclass because 
+     * it does not affect {@link AxisLayout#m_modelSet}.
+     * @param model the range model for the axis.
+     */
+    protected void setInternalRangeModel(ValuedRangeModel model) {
+        m_model = model;
+    }
+    
     /**
      * Set the range model determining the span of the axis. This model controls
      * the minimum and maximum values of the layout, as provided by the
