@@ -35,7 +35,7 @@ public class AxisLayout extends Layout {
     
     // visible region of the layout (in item coordinates)
     // if false, the table will be consulted
-    private boolean m_modelSet = false;
+    protected boolean m_modelSet = false;
     protected ValuedRangeModel m_model = null;
     protected Predicate m_filter = null;
     
