@@ -29,7 +29,7 @@ import prefuse.visual.VisualItem;
 public class AxisLayout extends Layout {
 
     private String m_field;
-    private int m_scale = Constants.LINEAR_SCALE;
+    protected int m_scale = Constants.LINEAR_SCALE;
     private int m_axis = Constants.X_AXIS;
     private int m_type = Constants.UNKNOWN;
     
