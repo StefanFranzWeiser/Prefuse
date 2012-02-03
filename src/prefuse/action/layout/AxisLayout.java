@@ -37,7 +37,7 @@ public class AxisLayout extends Layout {
     // if false, the table will be consulted
     private boolean m_modelSet = false;
     private ValuedRangeModel m_model = null;
-    private Predicate m_filter = null;
+    protected Predicate m_filter = null;
     
     // screen coordinate range
     private double m_min;
