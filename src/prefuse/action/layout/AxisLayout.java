@@ -44,7 +44,7 @@ public class AxisLayout extends Layout {
     private double m_range;
     
     // value range / distribution
-    private double[] m_dist = new double[2];
+    protected double[] m_dist = new double[2];
     
     /**
      * Create a new AxisLayout. Defaults to using the x-axis.
