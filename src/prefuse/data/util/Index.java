@@ -77,18 +77,21 @@ public interface Index {
     
     /**
      * Get the row (or one of the rows) with the minimum data value.
+     * If the column contains not data, it will return {@link java.lang.Integer#MIN_VALUE}.
      * @return a row with a minimum data value
      */
     public int minimum();
     
     /**
      * Get the row (or one of the rows) with the maximum data value.
+     * If the column contains not data, it will return {@link java.lang.Integer#MIN_VALUE}.
      * @return a row with a maximum data value
      */
     public int maximum();
     
     /**
      * Get the row (or one of the rows) with the median data value.
+     * If the column contains not data, it will return {@link java.lang.Integer#MIN_VALUE}.
      * @return a row with a median data value
      */
     public int median();
