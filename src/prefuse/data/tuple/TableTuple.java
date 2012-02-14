@@ -15,7 +15,7 @@ import prefuse.data.Tuple;
 public class TableTuple implements Tuple {
 
     protected Table m_table;
-    protected int m_row;
+    protected int m_row = -1;
     
     /**
      * Initialize a new TableTuple for the given table and row. Tuples are
