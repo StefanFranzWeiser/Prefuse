@@ -473,6 +473,7 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param name the data field name for the column
      * @param type the data type, as a Java Class, for the column
      * @see prefuse.data.tuple.TupleSet#addColumn(java.lang.String, java.lang.Class)
+     * @throws IllegalArgumentException if a column of that name already exists
      */
     public void addColumn(String name, Class type) {
         addColumn(name, type, null);
@@ -484,6 +485,7 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param type the data type, as a Java Class, for the column
      * @param defaultValue the default value for column data values
      * @see prefuse.data.tuple.TupleSet#addColumn(java.lang.String, java.lang.Class, java.lang.Object)
+     * @throws IllegalArgumentException if a column of that name already exists
      */
     public void addColumn(String name, Class type, Object defaultValue) {
         Column col = ColumnFactory.getColumn(type, 
@@ -501,6 +503,7 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * {@link prefuse.data.expression.parser.ExpressionParser}. If an error
      * occurs during parsing, an exception will be thrown. 
      * @see prefuse.data.tuple.TupleSet#addColumn(java.lang.String, java.lang.String)
+     * @throws IllegalArgumentException if a column of that name already exists
      */
     public void addColumn(String name, String expr) {
         Expression ex = ExpressionParser.parse(expr);
@@ -518,6 +521,7 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param name the data field name for the column
      * @param expr the Expression that will determine the column values
      * @see prefuse.data.tuple.TupleSet#addColumn(java.lang.String, prefuse.data.expression.Expression)
+     * @throws IllegalArgumentException if a column of that name already exists
      */
     public void addColumn(String name, Expression expr) {
         addColumn(name, ColumnFactory.getColumn(this, expr));
@@ -529,6 +533,7 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param name the data field name for the column
      * @param type the data type, as a Java Class, for the column
      * @param dflt the default value for column data values
+     * @throws IllegalArgumentException if a column of that name already exists
      */
     public void addConstantColumn(String name, Class type, Object dflt) {
         addColumn(name, ColumnFactory.getConstantColumn(type, dflt));
