@@ -13,6 +13,7 @@ public class All_PrefuseDataUtil_Tests {
         suite.addTestSuite(FloatIntTreeMapTest.class);
         suite.addTestSuite(DoubleIntTreeMapTest.class);
         suite.addTestSuite(ObjectIntTreeMapTest.class);
+        suite.addTestSuite(FilterIteratorFactoryTest.class);
         //$JUnit-END$
         return suite;
     }
