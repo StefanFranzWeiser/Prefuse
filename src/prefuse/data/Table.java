@@ -340,20 +340,43 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param nrows the number of rows to add.
      */
     public void addRows(int nrows) {
-        // keep track of inserted rows
-        int minrow = Integer.MAX_VALUE;
-        int maxrow = Integer.MIN_VALUE;
-
-        for ( int i=0; i<nrows; ++i ) {
-            int r = m_rows.addRow();
-            minrow = Math.min(r, minrow);
-            maxrow = Math.max(r, maxrow);
+        if (nrows < 1) {
+            throw new IllegalArgumentException(
+                    "Can only add a positive number of rows: " + nrows);
         }
+
+        // insert first row
+        int r = m_rows.addRow();
+
+        // keep track of inserted rows
+        int[] cur = { r, r };
+        ArrayList ranges = new ArrayList();
+
+        for (int i = 1; i < nrows; ++i) {
+            // insert other rows
+            r = m_rows.addRow();
+
+            if (cur[1] + 1 == r) {
+                // next row in current range
+                cur[1]++;
+            } else {
+                // new range: push cur range and create a new current range
+                ranges.add(cur);
+                cur = new int[2];
+                cur[0] = cur[1] = r;
+            }
+        }
+        // push last range
+        ranges.add(cur);
+
         updateRowCount();
-        
-        // XXX Warning: the range of modified rows may contain existing rows. 
-        fireTableEvent(minrow, maxrow, TableModelEvent.ALL_COLUMNS,
-                TableModelEvent.INSERT);
+
+        Iterator iterator = ranges.iterator();
+        while (iterator.hasNext()) {
+            cur = (int[]) iterator.next();
+            fireTableEvent(cur[0], cur[1], TableModelEvent.ALL_COLUMNS,
+                    TableModelEvent.INSERT);
+        }
     }
     
     /**
