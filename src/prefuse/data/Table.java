@@ -340,9 +340,20 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * @param nrows the number of rows to add.
      */
     public void addRows(int nrows) {
+        // keep track of inserted rows
+        int minrow = Integer.MAX_VALUE;
+        int maxrow = Integer.MIN_VALUE;
+
         for ( int i=0; i<nrows; ++i ) {
-            addRow();
+            int r = m_rows.addRow();
+            minrow = Math.min(r, minrow);
+            maxrow = Math.max(r, maxrow);
         }
+        updateRowCount();
+        
+        // XXX Warning: the range of modified rows may contain existing rows. 
+        fireTableEvent(minrow, maxrow, TableModelEvent.ALL_COLUMNS,
+                TableModelEvent.INSERT);
     }
     
     /**
