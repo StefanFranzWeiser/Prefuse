@@ -85,4 +85,4 @@ public abstract class Literal extends AbstractExpression {
         }
     }
     
-} // end of abstarct class Literal
+} // end of abstract class Literal
