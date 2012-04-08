@@ -339,44 +339,35 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      * added rows.
      * @param nrows the number of rows to add.
      */
-    public void addRows(int nrows) {
-        if (nrows < 1) {
-            throw new IllegalArgumentException(
-                    "Can only add a positive number of rows: " + nrows);
-        }
-
-        // insert first row
-        int r = m_rows.addRow();
-
+    public int[] addRows(int nrows) {
         // keep track of inserted rows
-        int[] cur = { r, r };
-        ArrayList ranges = new ArrayList();
+        int[] addedRows = new int[nrows];
 
-        for (int i = 1; i < nrows; ++i) {
-            // insert other rows
-            r = m_rows.addRow();
-
-            if (cur[1] + 1 == r) {
-                // next row in current range
-                cur[1]++;
-            } else {
-                // new range: push cur range and create a new current range
-                ranges.add(cur);
-                cur = new int[2];
-                cur[0] = cur[1] = r;
-            }
+        // insert rows
+        for (int i = 0; i < nrows; ++i) {
+            addedRows[i] = m_rows.addRow();
         }
-        // push last range
-        ranges.add(cur);
 
         updateRowCount();
 
-        Iterator iterator = ranges.iterator();
-        while (iterator.hasNext()) {
-            cur = (int[]) iterator.next();
-            fireTableEvent(cur[0], cur[1], TableModelEvent.ALL_COLUMNS,
-                    TableModelEvent.INSERT);
+        int left = addedRows[0];
+        int right = addedRows[0];
+        for (int i = 1; i < nrows; ++i) {
+            if (right + 1 == addedRows[i]) {
+                // next row in current range
+                right++;
+            } else {
+                // new range: fire and start a new current range
+                fireTableEvent(left, right, TableModelEvent.ALL_COLUMNS,
+                        TableModelEvent.INSERT);
+                left = right = addedRows[i];
+            }
         }
+        // fire last range
+        fireTableEvent(left, right, TableModelEvent.ALL_COLUMNS,
+                TableModelEvent.INSERT);
+        
+        return addedRows;
     }
     
     /**
