@@ -50,9 +50,9 @@ public class GraphMLWriter extends AbstractGraphWriter {
     /**
      * Map containing legal data types and their names in the GraphML spec
      */
-    public static final java.util.Map<Class, String> TYPES; 
+    public static final java.util.Map TYPES; 
     static {
-        HashMap<Class, String> types = new HashMap<Class, String>();
+        HashMap types = new HashMap();
         types.put(int.class, Tokens.INT);
         types.put(long.class, Tokens.LONG);
         types.put(float.class, Tokens.FLOAT);
