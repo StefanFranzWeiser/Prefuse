@@ -184,6 +184,16 @@ public interface Tuple {
     public boolean canGetInt(String field);
     
     /**
+     * Check if the given data field can return primitive <code>int</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>int</code>
+     * values, false otherwise. If true, the {@link #getInt(int)} method
+     * can be used safely.
+     */
+    public boolean canGetInt(int col);
+    
+    /**
      * Check if the <code>setInt</code> method can safely be used for the
      * given data field.
      * @param field the data field to check
@@ -191,6 +201,15 @@ public interface Tuple {
      * be used for the given field, false otherwise.
      */
     public boolean canSetInt(String field);
+    
+    /**
+     * Check if the <code>setInt</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setInt(int, int)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetInt(int col);
     
     /**
      * Get the data value at the given field as an <code>int</code>.
@@ -335,6 +354,16 @@ public interface Tuple {
      * can be used safely.
      */
     public boolean canGetDouble(String field);
+
+    /**
+     * Check if the given data field can return primitive <code>double</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>double</code>
+     * values, false otherwise. If true, the {@link #getDouble(int)} method
+     * can be used safely.
+     */
+    public boolean canGetDouble(int col);
     
     /**
      * Check if the <code>setDouble</code> method can safely be used for the
@@ -344,6 +373,15 @@ public interface Tuple {
      * be used for the given field, false otherwise.
      */
     public boolean canSetDouble(String field);
+    
+    /**
+     * Check if the <code>setDouble</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setDouble(String, int)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetDouble(int col);
     
     /**
      * Get the data value at the given field as a <code>double</code>.

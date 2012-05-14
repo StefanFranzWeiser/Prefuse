@@ -1028,6 +1028,19 @@ public class Table extends AbstractTupleSet implements ColumnListener {
     }
     
     /**
+     * Check if the given data field can return primitive <code>int</code>
+     * values.
+     * @param index the column number of the data field to check
+     * @return true if the data field can return primitive <code>int</code>
+     * values, false otherwise. If true, the {@link #getInt(int, int)}
+     * method can be used safely.
+     */
+    public final boolean canGetInt(int index) {
+        Column col = getColumn(index);
+        return ( col==null ? false : col.canGetInt() );
+    }
+    
+    /**
      * Check if the <code>setInt</code> method can safely be used for the
      * given data field.
      * @param field the data field to check
@@ -1036,6 +1049,18 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      */
     public final boolean canSetInt(String field) {
         Column col = getColumn(field);
+        return ( col==null ? false : col.canSetInt() );
+    }
+    
+    /**
+     * Check if the <code>setInt</code> method can safely be used for the
+     * given data field.
+     * @param index the column number of the data field to check
+     * @return true if the {@link #setInt(int, int, int)} method can
+     * safely be used for the given field, false otherwise.
+     */
+    public final boolean canSetInt(int index) {
+        Column col = getColumn(index);
         return ( col==null ? false : col.canSetInt() );
     }
     
@@ -1265,6 +1290,19 @@ public class Table extends AbstractTupleSet implements ColumnListener {
     }
     
     /**
+     * Check if the given data field can return primitive <code>double</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>double</code>
+     * values, false otherwise. If true, the {@link #getDouble(int, int)}
+     * method can be used safely.
+     */
+    public final boolean canGetDouble(int index) {
+        Column col = getColumn(index);
+        return ( col==null ? false : col.canGetDouble() );
+    }
+    
+    /**
      * Check if the <code>setDouble</code> method can safely be used for the
      * given data field.
      * @param field the data field to check
@@ -1273,6 +1311,18 @@ public class Table extends AbstractTupleSet implements ColumnListener {
      */
     public final boolean canSetDouble(String field) {
         Column col = getColumn(field);
+        return ( col==null ? false : col.canSetDouble() );
+    }
+    
+    /**
+     * Check if the <code>setDouble</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setDouble(int, int, double)} method can
+     * safely be used for the given field, false otherwise.
+     */
+    public final boolean canSetDouble(int index) {
+        Column col = getColumn(index);
         return ( col==null ? false : col.canSetDouble() );
     }
     

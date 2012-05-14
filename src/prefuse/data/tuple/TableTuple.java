@@ -192,11 +192,19 @@ public class TableTuple implements Tuple {
         return m_table.canGetInt(field);
     }
     
+    public final boolean canGetInt(int col) {
+        return m_table.canGetInt(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#canSetInt(java.lang.String)
      */
     public final boolean canSetInt(String field) {
         return m_table.canSetInt(field);
+    }
+    
+    public final boolean canSetInt(int col) {
+        return m_table.canSetInt(col);
     }
     
     /**
@@ -336,11 +344,19 @@ public class TableTuple implements Tuple {
         return m_table.canGetDouble(field);
     }
     
+    public final boolean canGetDouble(int col) {
+        return m_table.canGetDouble(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#canSetDouble(java.lang.String)
      */
     public final boolean canSetDouble(String field) {
         return m_table.canSetDouble(field);
+    }
+    
+    public final boolean canSetDouble(int col) {
+        return m_table.canSetDouble(col);
     }
     
     /**
