@@ -134,6 +134,14 @@ public class TableTuple implements Tuple {
         return m_table.canSet(field, type);
     }
     
+    public boolean canGet(int col, Class type) {
+        return m_table.canGet(col, type);
+    }
+    
+    public boolean canSet(int col, Class type) {
+        return m_table.canSet(col, type);
+    }
+    
     /**
      * @see prefuse.data.Tuple#get(java.lang.String)
      */
@@ -192,15 +200,15 @@ public class TableTuple implements Tuple {
         return m_table.canGetInt(field);
     }
     
-    public final boolean canGetInt(int col) {
-        return m_table.canGetInt(col);
-    }
-    
     /**
      * @see prefuse.data.Tuple#canSetInt(java.lang.String)
      */
     public final boolean canSetInt(String field) {
         return m_table.canSetInt(field);
+    }
+    
+    public final boolean canGetInt(int col) {
+        return m_table.canGetInt(col);
     }
     
     public final boolean canSetInt(int col) {
@@ -255,6 +263,14 @@ public class TableTuple implements Tuple {
         return m_table.canSetLong(field);
     }
     
+    public final boolean canGetLong(int col) {
+        return m_table.canGetLong(col);
+    }
+    
+    public final boolean canSetLong(int col) {
+        return m_table.canSetLong(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#getLong(java.lang.String)
      */
@@ -303,6 +319,14 @@ public class TableTuple implements Tuple {
         return m_table.canSetFloat(field);
     }
     
+    public final boolean canGetFloat(int col) {
+        return m_table.canGetFloat(col);
+    }
+    
+    public final boolean canSetFloat(int col) {
+        return m_table.canSetFloat(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#getFloat(java.lang.String)
      */
@@ -344,15 +368,15 @@ public class TableTuple implements Tuple {
         return m_table.canGetDouble(field);
     }
     
-    public final boolean canGetDouble(int col) {
-        return m_table.canGetDouble(col);
-    }
-    
     /**
      * @see prefuse.data.Tuple#canSetDouble(java.lang.String)
      */
     public final boolean canSetDouble(String field) {
         return m_table.canSetDouble(field);
+    }
+    
+    public final boolean canGetDouble(int col) {
+        return m_table.canGetDouble(col);
     }
     
     public final boolean canSetDouble(int col) {
@@ -407,6 +431,14 @@ public class TableTuple implements Tuple {
         return m_table.canSetBoolean(field);
     }
     
+    public final boolean canGetBoolean(int col) {
+        return m_table.canGetBoolean(col);
+    }
+    
+    public final boolean canSetBoolean(int col) {
+        return m_table.canSetBoolean(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#getBoolean(java.lang.String)
      */
@@ -455,6 +487,14 @@ public class TableTuple implements Tuple {
         return m_table.canSetString(field);
     }
     
+    public final boolean canGetString(int col) {
+        return m_table.canGetString(col);
+    }
+    
+    public final boolean canSetString(int col) {
+        return m_table.canSetString(col);
+    }
+    
     /**
      * @see prefuse.data.Tuple#getString(java.lang.String)
      */
@@ -501,6 +541,14 @@ public class TableTuple implements Tuple {
      */
     public final boolean canSetDate(String field) {
         return m_table.canSetDate(field);
+    }
+    
+    public final boolean canGetDate(int col) {
+        return m_table.canGetDate(col);
+    }
+    
+    public final boolean canSetDate(int col) {
+        return m_table.canSetDate(col);
     }
     
     /**

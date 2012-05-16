@@ -111,6 +111,32 @@ public interface Tuple {
     public boolean canSet(String field, Class type);
     
     /**
+     * Check if the <code>get</code> method for the given data field returns
+     * values that are compatible with a given target type.
+     * @param col the column number of the data field to check
+     * @param type a Class instance to check for compatibility with the
+     * data field values.
+     * @return true if the data field is compatible with provided type,
+     * false otherwise. If the value is true, objects returned by
+     * the {@link #get(int)} can be cast to the given type.
+     * @see #get(int)
+     */
+    public boolean canGet(int col, Class type);
+    
+    /**
+     * Check if the <code>set</code> method for the given data field can
+     * accept values of a given target type.
+     * @param col the column number of the data field to check
+     * @param type a Class instance to check for compatibility with the
+     * data field values.
+     * @return true if the data field is compatible with provided type,
+     * false otherwise. If the value is true, objects of the given type
+     * can be used as parameters of the {@link #set(int, Object)} method.
+     * @see #set(int, Object)
+     */
+    public boolean canSet(int col, Class type);
+    
+    /**
      * Get the data value at the given field as an Object.
      * @param field the data field to retrieve
      * @return the data value as an Object. The concrete type of this
@@ -137,7 +163,7 @@ public interface Tuple {
      * @param col the column number
      * @return the data value as an Object. The concrete type of this
      * Object is dependent on the underlying data column used.
-     * @see #canGet(String, Class)
+     * @see #canGet(int, Class)
      * @see #getColumnType(int)
      */
     public Object get(int col);
@@ -147,9 +173,9 @@ public interface Tuple {
      * @param col the column number
      * @param value the value for the field. If the concrete type of this
      * Object is not compatible with the underlying data model, an
-     * Exception will be thrown. Use the {@link #canSet(String, Class)}
+     * Exception will be thrown. Use the {@link #canSet(int, Class)}
      * method to check the type-safety ahead of time.
-     * @see #canSet(String, Class)
+     * @see #canSet(int, Class)
      * @see #getColumnType(String)
      */
     public void set(int col, Object value);
@@ -184,6 +210,15 @@ public interface Tuple {
     public boolean canGetInt(String field);
     
     /**
+     * Check if the <code>setInt</code> method can safely be used for the
+     * given data field.
+     * @param field the data field to check
+     * @return true if the {@link #setInt(String, int)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetInt(String field);
+    
+    /**
      * Check if the given data field can return primitive <code>int</code>
      * values.
      * @param col the column number of the data field to check
@@ -192,15 +227,6 @@ public interface Tuple {
      * can be used safely.
      */
     public boolean canGetInt(int col);
-    
-    /**
-     * Check if the <code>setInt</code> method can safely be used for the
-     * given data field.
-     * @param field the data field to check
-     * @return true if the {@link #setInt(String, int)} method can safely
-     * be used for the given field, false otherwise.
-     */
-    public boolean canSetInt(String field);
     
     /**
      * Check if the <code>setInt</code> method can safely be used for the
@@ -229,7 +255,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as an <code>int</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetInt(String)
+     * @see #canGetInt(int)
      */
     public int getInt(int col);
     
@@ -237,7 +263,7 @@ public interface Tuple {
      * Set the data value of the given field with an <code>int</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetInt(String)
+     * @see #canSetInt(int)
      */
     public void setInt(int col, int val);
     
@@ -263,6 +289,25 @@ public interface Tuple {
     public boolean canSetLong(String field);
     
     /**
+     * Check if the given data field can return primitive <code>long</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>long</code>
+     * values, false otherwise. If true, the {@link #getLong(int)} method
+     * can be used safely.
+     */
+    public boolean canGetLong(int col);
+    
+    /**
+     * Check if the <code>setLong</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setLong(int, long)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetLong(int col);
+    
+    /**
      * Get the data value at the given field as a <code>long</code>.
      * @param field the data field to retrieve
      * @see #canGetLong(String)
@@ -280,7 +325,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>long</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetLong(String)
+     * @see #canGetLong(int)
      */
     public long getLong(int col);
     
@@ -288,7 +333,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>long</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetLong(String)
+     * @see #canSetLong(int)
      */
     public void setLong(int col, long val);
 
@@ -314,6 +359,25 @@ public interface Tuple {
     public boolean canSetFloat(String field);
     
     /**
+     * Check if the given data field can return primitive <code>float</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>float</code>
+     * values, false otherwise. If true, the {@link #getFloat(int)} method
+     * can be used safely.
+     */
+    public boolean canGetFloat(int col);
+    
+    /**
+     * Check if the <code>setFloat</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setFloat(int, float)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetFloat(int col);
+    
+    /**
      * Get the data value at the given field as a <code>float</code>.
      * @param field the data field to retrieve
      * @see #canGetFloat(String)
@@ -331,7 +395,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>float</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetFloat(String)
+     * @see #canGetFloat(int)
      */
     public float getFloat(int col);
     
@@ -339,7 +403,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>float</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetFloat(String)
+     * @see #canSetFloat(int)
      */
     public void setFloat(int col, float val);
     
@@ -356,6 +420,15 @@ public interface Tuple {
     public boolean canGetDouble(String field);
 
     /**
+     * Check if the <code>setDouble</code> method can safely be used for the
+     * given data field.
+     * @param field the data field to check
+     * @return true if the {@link #setDouble(String, double)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetDouble(String field);
+    
+    /**
      * Check if the given data field can return primitive <code>double</code>
      * values.
      * @param col the column number of the data field to check
@@ -364,15 +437,6 @@ public interface Tuple {
      * can be used safely.
      */
     public boolean canGetDouble(int col);
-    
-    /**
-     * Check if the <code>setDouble</code> method can safely be used for the
-     * given data field.
-     * @param field the data field to check
-     * @return true if the {@link #setDouble(String, double)} method can safely
-     * be used for the given field, false otherwise.
-     */
-    public boolean canSetDouble(String field);
     
     /**
      * Check if the <code>setDouble</code> method can safely be used for the
@@ -401,7 +465,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>double</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetDouble(String)
+     * @see #canGetDouble(int)
      */
     public double getDouble(int col);
     
@@ -409,7 +473,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>double</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetDouble(String)
+     * @see #canSetDouble(int)
      */
     public void setDouble(int col, double val);
     
@@ -435,6 +499,25 @@ public interface Tuple {
     public boolean canSetBoolean(String field);
     
     /**
+     * Check if the given data field can return primitive <code>boolean</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return primitive <code>boolean</code>
+     * values, false otherwise. If true, the {@link #getBoolean(int)} method
+     * can be used safely.
+     */
+    public boolean canGetBoolean(int col);
+    
+    /**
+     * Check if the <code>setBoolean</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setBoolean(int, boolean)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetBoolean(int col);
+    
+    /**
      * Get the data value at the given field as a <code>boolean</code>.
      * @param field the data field to retrieve
      * @see #canGetBoolean(String)
@@ -452,7 +535,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>boolean</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetBoolean(String)
+     * @see #canGetBoolean(int)
      */
     public boolean getBoolean(int col);
     
@@ -460,7 +543,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>boolean</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetBoolean(String)
+     * @see #canSetBoolean(int)
      */
     public void setBoolean(int col, boolean val);
     
@@ -486,6 +569,25 @@ public interface Tuple {
     public boolean canSetString(String field);
     
     /**
+     * Check if the given data field can return <code>String</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return <code>String</code>
+     * values, false otherwise. If true, the {@link #getString(int)} method
+     * can be used safely.
+     */
+    public boolean canGetString(int col);
+    
+    /**
+     * Check if the <code>setString</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setString(int, String)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetString(int col);
+    
+    /**
      * Get the data value at the given field as a <code>String</code>.
      * @param field the data field to retrieve
      * @see #canGetString(String)
@@ -503,7 +605,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>String</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetString(String)
+     * @see #canGetString(int)
      */
     public String getString(int col);
     
@@ -511,7 +613,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>String</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetString(String)
+     * @see #canSetString(int)
      */
     public void setString(int col, String val);
     
@@ -537,6 +639,25 @@ public interface Tuple {
     public boolean canSetDate(String field);
     
     /**
+     * Check if the given data field can return <code>Date</code>
+     * values.
+     * @param col the column number of the data field to check
+     * @return true if the data field can return <code>Date</code>
+     * values, false otherwise. If true, the {@link #getDate(int)} method
+     * can be used safely.
+     */
+    public boolean canGetDate(int col);
+    
+    /**
+     * Check if the <code>setDate</code> method can safely be used for the
+     * given data field.
+     * @param col the column number of the data field to check
+     * @return true if the {@link #setDate(int, Date)} method can safely
+     * be used for the given field, false otherwise.
+     */
+    public boolean canSetDate(int col);
+    
+    /**
      * Get the data value at the given field as a <code>Date</code>.
      * @param field the data field to retrieve
      * @see #canGetDate(String)
@@ -554,7 +675,7 @@ public interface Tuple {
     /**
      * Get the data value at the given field as a <code>Date</code>.
      * @param col the column number of the data field to retrieve
-     * @see #canGetDate(String)
+     * @see #canGetDate(int)
      */
     public Date getDate(int col);
     
@@ -562,7 +683,7 @@ public interface Tuple {
      * Set the data value of the given field with a <code>Date</code>.
      * @param col the column number of the data field to set
      * @param val the value to set
-     * @see #canSetDate(String)
+     * @see #canSetDate(int)
      */
     public void setDate(int col, Date val);
     
