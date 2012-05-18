@@ -894,8 +894,8 @@ public class Visualization {
      * @param group the visual data group
      * @return the requested data group, or null if not found
      */
-    public TupleSet getVisualGroup(String group) {
-        return (TupleSet)m_visual.get(group);
+    public VisualTupleSet getVisualGroup(String group) {
+        return (VisualTupleSet)m_visual.get(group);
     }
     
     /**
