@@ -449,6 +449,62 @@ public class Visualization {
         
         return vg;
     }
+
+    /**
+     * Add an empty VisualTree to this visualization, using the given data
+     * group name and node schema. This adds a group of VisualItems that do
+     * not have a backing data set, useful for creating interactive visual
+     * objects that do not represent data. An exception will be thrown if the
+     * group name is already in use.
+     * @param group the data group name for the visualized data
+     * @param nodeSchema the data schema to use for the visual node table
+     * @return the added VisualTree
+     */
+    public synchronized VisualTree addTree(String group, Schema nodeSchema) {
+        Schema edgeSchema = PrefuseLib.getVisualItemSchema();
+        edgeSchema.addColumn(Tree.DEFAULT_SOURCE_KEY, int.class, new Integer(-1));
+        edgeSchema.addColumn(Tree.DEFAULT_TARGET_KEY, int.class, new Integer(-1));
+         
+        return addTree(group, nodeSchema, edgeSchema);
+    }
+   
+    /**
+     * Add an empty VisualTree to this visualization, using the given data
+     * group name and node/edge schemas. This adds a group of VisualItems that do
+     * not have a backing data set, useful for creating interactive visual
+     * objects that do not represent data. An exception will be thrown if the
+     * group name is already in use.
+     * @param group the data group name for the visualized data
+     * @param nodeSchema the data schema to use for the visual node table
+     * @param edgeSchema the data schema to use for the visual edge table
+     * @return the added VisualTree
+     */
+    public synchronized VisualTree addTree(String group, Schema nodeSchema, Schema edgeSchema) {
+        checkGroupExists(group); // check before adding sub-tables
+        String ngroup = PrefuseLib.getGroupName(group, Graph.NODES); 
+        String egroup = PrefuseLib.getGroupName(group, Graph.EDGES);
+        
+        VisualTable nt, et;
+        nt = new VisualTable(this, ngroup, nodeSchema);
+        addDataGroup(ngroup, nt, null);
+        et = new VisualTable(this, egroup, edgeSchema);
+        addDataGroup(egroup, et, null);
+
+        VisualTree vt = new VisualTree(nt, et, null,
+                Tree.DEFAULT_SOURCE_KEY, Tree.DEFAULT_TARGET_KEY);
+        vt.setVisualization(this);
+        vt.setGroup(group);
+        
+        addDataGroup(group, vt, null);
+        
+        TupleManager ntm = new TupleManager(nt, vt, TableNodeItem.class);
+        TupleManager etm = new TupleManager(et, vt, TableEdgeItem.class);
+        nt.setTupleManager(ntm);
+        et.setTupleManager(etm);
+        vt.setTupleManagers(ntm, etm);
+        
+        return vt;
+    }
     
     /**
      * Adds a tree to this visualization, using the given data group
