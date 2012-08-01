@@ -45,7 +45,7 @@ import prefuse.visual.VisualItem;
  */
 public class DataColorAction extends ColorAction {
 
-    private String m_dataField;
+    protected String m_dataField;
     protected int    m_type;
     protected int    m_scale = Constants.LINEAR_SCALE;
     protected int    m_tempScale;
@@ -53,7 +53,7 @@ public class DataColorAction extends ColorAction {
     protected double[] m_dist;
     protected int      m_bins = Constants.CONTINUOUS;
     protected Map      m_omap;
-    private Object[] m_olist;
+    protected Object[] m_olist;
     private ColorMap m_cmap = new ColorMap(null,0,1);
     private int[]    m_palette;
     
