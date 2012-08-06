@@ -385,6 +385,7 @@ public class PrefuseLib {
 
         // size
         s.addInterpolatedColumn(VisualItem.SIZE, double.class, new Double(1));
+        s.addInterpolatedColumn(VisualItem.SIZEY, double.class, new Double(Double.NaN));
         
         // shape
         s.addColumn(VisualItem.SHAPE, int.class,

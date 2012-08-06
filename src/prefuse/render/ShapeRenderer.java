@@ -67,6 +67,7 @@ public class ShapeRenderer extends AbstractShapeRenderer {
         if ( Double.isNaN(y) || Double.isInfinite(y) )
             y = 0;
         double width = m_baseSize*item.getSize();
+        double height = m_baseSize*item.getSizeY();
         
         // Center the shape around the specified x and y
         if ( width > 1 ) {
@@ -74,31 +75,60 @@ public class ShapeRenderer extends AbstractShapeRenderer {
             y = y-width/2;
         }
         
-        switch ( stype ) {
-        case Constants.SHAPE_NONE:
-            return null;
-        case Constants.SHAPE_RECTANGLE:
-            return rectangle(x, y, width, width);
-        case Constants.SHAPE_ELLIPSE:
-            return ellipse(x, y, width, width);
-        case Constants.SHAPE_TRIANGLE_UP:
-            return triangle_up((float)x, (float)y, (float)width);
-        case Constants.SHAPE_TRIANGLE_DOWN:
-            return triangle_down((float)x, (float)y, (float)width);
-        case Constants.SHAPE_TRIANGLE_LEFT:
-            return triangle_left((float)x, (float)y, (float)width);
-        case Constants.SHAPE_TRIANGLE_RIGHT:
-            return triangle_right((float)x, (float)y, (float)width);
-        case Constants.SHAPE_CROSS:
-            return cross((float)x, (float)y, (float)width);
-        case Constants.SHAPE_STAR:
-            return star((float)x, (float)y, (float)width);
-        case Constants.SHAPE_HEXAGON:
-            return hexagon((float)x, (float)y, (float)width);
-        case Constants.SHAPE_DIAMOND:
-            return diamond((float)x, (float)y, (float)width);
-        default:
-            throw new IllegalStateException("Unknown shape type: "+stype);
+        if (Double.isNaN(height)) {
+        	switch ( stype ) {
+        	case Constants.SHAPE_NONE:
+        		return null;
+        	case Constants.SHAPE_RECTANGLE:
+        		return rectangle(x, y, width, width);
+        	case Constants.SHAPE_ELLIPSE:
+        		return ellipse(x, y, width, width);
+        	case Constants.SHAPE_TRIANGLE_UP:
+        		return triangle_up((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_TRIANGLE_DOWN:
+        		return triangle_down((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_TRIANGLE_LEFT:
+        		return triangle_left((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_TRIANGLE_RIGHT:
+        		return triangle_right((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_CROSS:
+        		return cross((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_STAR:
+        		return star((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_HEXAGON:
+        		return hexagon((float)x, (float)y, (float)width);
+        	case Constants.SHAPE_DIAMOND:
+        		return diamond((float)x, (float)y, (float)width);
+        	default:
+        		throw new IllegalStateException("Unknown shape type: "+stype);
+        	}
+        } else {
+        	switch ( stype ) {
+        	case Constants.SHAPE_NONE:
+        		return null;
+        	case Constants.SHAPE_RECTANGLE:
+        		return rectangle(x, y, width, height);
+        	case Constants.SHAPE_ELLIPSE:
+        		return ellipse(x, y, width, height);
+        	case Constants.SHAPE_TRIANGLE_UP:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_TRIANGLE_DOWN:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_TRIANGLE_LEFT:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_TRIANGLE_RIGHT:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_CROSS:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_STAR:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_HEXAGON:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	case Constants.SHAPE_DIAMOND:
+        		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
+        	default:
+        		throw new IllegalStateException("Unknown shape type: "+stype);
+        	}
         }
     }
 
