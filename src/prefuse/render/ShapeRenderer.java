@@ -72,7 +72,10 @@ public class ShapeRenderer extends AbstractShapeRenderer {
         // Center the shape around the specified x and y
         if ( width > 1 ) {
             x = x-width/2;
-            y = y-width/2;
+            if (Double.isNaN(height))
+            	y = y-width/2;
+            else
+            	y = y-height/2;
         }
         
         if (Double.isNaN(height)) {
