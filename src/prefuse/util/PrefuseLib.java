@@ -276,6 +276,46 @@ public class PrefuseLib {
         item.setY(y);
     }
     
+    /**
+     * Update the x-size of an item. The current x-size value will become the
+     * new starting x-size value, while the given value will become the new current
+     * x-size and ending x-size values. This method also supports an optional referrer
+     * item, whose x-size coordinate will become the new starting x-size coordinate
+     * of item if item's current x-size value is NaN.
+     * @param item the VisualItem to update
+     * @param referrer an optional referrer VisualItem
+     * @param xSize the x-size value to set
+     */
+    public static void setSizeX(VisualItem item, VisualItem referrer, double xSize) {
+        double sx = item.getSizeX();
+        if ( Double.isNaN(sx) )
+            sx = (referrer != null ? referrer.getSizeX() : xSize);
+        
+        item.setStartSizeX(sx);
+        item.setEndSizeX(xSize);
+        item.setSizeX(xSize);
+    }
+
+    /**
+     * Update the y-size of an item. The current y-size value will become the
+     * new starting y-size value, while the given value will become the new current
+     * y-size and ending y-size values. This method also supports an optional referrer
+     * item, whose y-size coordinate will become the new starting y-size coordinate
+     * of item if item's current y-size value is NaN.
+     * @param item the VisualItem to update
+     * @param referrer an optional referrer VisualItem
+     * @param ySize the y-size value to set
+     */
+    public static void setSizeY(VisualItem item, VisualItem referrer, double ySize) {
+        double sy = item.getSizeY();
+        if ( Double.isNaN(sy) )
+            sy = (referrer != null ? referrer.getSizeY() : ySize);
+        
+        item.setStartSizeY(sy);
+        item.setEndSizeY(ySize);
+        item.setSizeY(ySize);
+    }
+    
     // ------------------------------------------------------------------------
     // Group Name Methods
     
