@@ -179,7 +179,7 @@ public class Visualization {
     // actions
     private ActivityMap m_actions;
     
-    // renderers
+	// renderers
     private RendererFactory m_renderers;
     
     // displays
@@ -1133,6 +1133,14 @@ public class Visualization {
     
     // ------------------------------------------------------------------------
     // Action Methods
+    
+    /**
+     * Get the full action list as ActivityMap.
+	 * @return the m_actions
+	 */
+	public ActivityMap getActions() {
+		return m_actions;
+	}
     
     /**
      * Add a data processing Action to this Visualization. The Action will be
