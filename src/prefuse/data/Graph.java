@@ -449,7 +449,7 @@ public class Graph extends CompositeTupleSet {
     }
     
     /**
-     * Update the link table to accomodate an inserted or deleted node
+     * Update the link table to accommodate an inserted or deleted node
      * @param r the node id, also the row number into the link table
      * @param added indicates if a node was added or removed
      */
@@ -1213,7 +1213,7 @@ public class Graph extends CompositeTupleSet {
      * 
      * This method is primarily useful for subclasses.
      * For example, calling this method on a Tree instance will revert the
-     * state to the original rooted tree such that a sbusequent call to
+     * state to the original rooted tree such that a subsequent call to
      * getSpanningTree() will return the backing Tree itself.
      * @see #getSpanningTree()
      * @see #getSpanningTree(Node)
