@@ -130,6 +130,8 @@ public class RadialTreeLayout extends TreeLayout {
         m_origin = getLayoutAnchor();
         NodeItem n = getLayoutRoot();
         Params np = (Params)n.get(PARAMS);
+
+	g.getSpanningTree(n);
         
         // calc relative widths and maximum tree depth
         // performs one pass over the tree
@@ -147,6 +149,15 @@ public class RadialTreeLayout extends TreeLayout {
         setX(n, null, m_origin.getX());
         setY(n, null, m_origin.getY());
         np.angle = m_theta2-m_theta1;
+    }
+    
+    /**
+     * Clears references to graph tuples.  The group and visualization are
+     * retained.
+     */
+    public void reset() {
+    	super.reset();
+    	m_prevRoot = null;
     }
     
     protected void setScale(Rectangle2D bounds) {
