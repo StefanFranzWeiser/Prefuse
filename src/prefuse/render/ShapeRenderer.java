@@ -20,7 +20,7 @@ public class ShapeRenderer extends AbstractShapeRenderer {
     
     private Ellipse2D   m_ellipse = new Ellipse2D.Double();
     private Rectangle2D m_rect = new Rectangle2D.Double();
-    private GeneralPath m_path = new GeneralPath();
+    protected GeneralPath m_path = new GeneralPath();
 
     /**
      * Creates a new ShapeRenderer with default base size of 10 pixels.
@@ -103,7 +103,7 @@ public class ShapeRenderer extends AbstractShapeRenderer {
         	case Constants.SHAPE_DIAMOND:
         		return diamond((float)x, (float)y, (float)width);
         	default:
-        		throw new IllegalStateException("Unknown shape type: "+stype);
+        		return extendedShape(stype,x,y,width,width);
         	}
         } else {
         	switch ( stype ) {
@@ -130,12 +130,17 @@ public class ShapeRenderer extends AbstractShapeRenderer {
         	case Constants.SHAPE_DIAMOND:
         		throw new IllegalStateException("Shape cannot be scaled vertically: "+stype);
         	default:
-        		throw new IllegalStateException("Unknown shape type: "+stype);
+        		return extendedShape(stype,x,y,width,height);
         	}
         }
     }
 
-    /**
+	protected Shape extendedShape(int stype, double x, double y, double width,
+			double height) {
+		throw new IllegalStateException("Unknown shape type: "+stype);
+	}
+
+	/**
      * Returns a rectangle of the given dimenisions.
      */
     public Shape rectangle(double x, double y, double width, double height) {
