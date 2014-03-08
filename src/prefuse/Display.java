@@ -826,102 +826,104 @@ public class Display extends JComponent {
      */
     public void paintDisplay(Graphics2D g2D, Dimension d) {
         // if double-locking *ALWAYS* lock on the visualization first
-        synchronized ( m_vis ) {
-        synchronized ( this ) {
-            
-            if ( m_clip.isEmpty() )
-                return; // no damage, no render
-            
-            // map the screen bounds to absolute coords
-            m_screen.setClip(0, 0, d.width+1, d.height+1);
-            m_screen.transform(m_itransform);
-            
-            // compute the approximate size of an "absolute pixel"
-            // values too large are OK (though cause unnecessary rendering)
-            // values too small will cause incorrect rendering
-            double pixel = 1.0 + 1.0/getScale();
-            
-            if ( m_damageRedraw ) {  
-                if ( m_clip.isInvalid() ) {
-                    // if clip is invalid, we clip to the entire screen
-                    m_clip.setClip(m_screen);
-                } else {
-                    // otherwise intersect damaged region with display bounds
-                    m_clip.intersection(m_screen);
-                }
-  
-                // expand the clip by the extra pixel margin
-                m_clip.expand(pixel);
-                
-                // set the transform, rendering keys, etc
-                prepareGraphics(g2D);
-                
-                // now set the actual rendering clip
-                m_rclip.setFrameFromDiagonal(
-                        m_clip.getMinX(), m_clip.getMinY(), 
-                        m_clip.getMaxX(), m_clip.getMaxY());
-                g2D.setClip(m_rclip);
-                
-                // finally, we want to clear the region we'll redraw. we clear
-                // a slightly larger area than the clip. if we don't do this,
-                // we sometimes get rendering artifacts, possibly due to
-                // scaling mismatches in the Java2D implementation
-                m_rclip.setFrameFromDiagonal(
-                        m_clip.getMinX()-pixel, m_clip.getMinY()-pixel,
-                        m_clip.getMaxX()+pixel, m_clip.getMaxY()+pixel);
-
-            } else {
-                // set the background region to clear
-                m_rclip.setFrame(m_screen.getMinX(),  m_screen.getMinY(),
-                                 m_screen.getWidth(), m_screen.getHeight());
-                
-                // set the item clip to the current screen
-                m_clip.setClip(m_screen);
-                
-                // set the transform, rendering keys, etc
-                prepareGraphics(g2D);
-            }
-
-            // now clear the region
-            clearRegion(g2D, m_rclip);            
-            
-            // -- render ----------------------------
-            // the actual rendering  loop
-            
-            // copy current item bounds into m_rclip, reset item bounds
-            getItemBounds(m_rclip);
-            m_bounds.reset();
-            
-            // fill the rendering and picking queues
-            m_queue.clear();   // clear the queue
-            Iterator items = m_vis.items(m_predicate);
-            for ( m_visibleCount=0; items.hasNext(); ++m_visibleCount ) {
-                VisualItem item = (VisualItem)items.next();
-                Rectangle2D bounds = item.getBounds();
-                m_bounds.union(bounds); // add to item bounds
-                
-                if ( m_clip.intersects(bounds, pixel) )
-                    m_queue.addToRenderQueue(item);
-                if ( item.isInteractive() )
-                    m_queue.addToPickingQueue(item);
-            }
-            
-            // sort the rendering queue
-            m_queue.sortRenderQueue();
-            
-            // render each visual item
-            for ( int i=0; i<m_queue.rsize; ++i ) {
-                m_queue.ritems[i].render(g2D);
-            }
-            
-            // no more damage so reset the clip
-            if ( m_damageRedraw )
-                m_clip.reset();
-            
-            // fire bounds change, if appropriate
-            checkItemBoundsChanged(m_rclip);
-            
-        }} // end synchronized block
+    	if (m_vis != null ) {
+	        synchronized ( m_vis ) {
+	        synchronized ( this ) {
+	            
+	            if ( m_clip.isEmpty() )
+	                return; // no damage, no render
+	            
+	            // map the screen bounds to absolute coords
+	            m_screen.setClip(0, 0, d.width+1, d.height+1);
+	            m_screen.transform(m_itransform);
+	            
+	            // compute the approximate size of an "absolute pixel"
+	            // values too large are OK (though cause unnecessary rendering)
+	            // values too small will cause incorrect rendering
+	            double pixel = 1.0 + 1.0/getScale();
+	            
+	            if ( m_damageRedraw ) {  
+	                if ( m_clip.isInvalid() ) {
+	                    // if clip is invalid, we clip to the entire screen
+	                    m_clip.setClip(m_screen);
+	                } else {
+	                    // otherwise intersect damaged region with display bounds
+	                    m_clip.intersection(m_screen);
+	                }
+	  
+	                // expand the clip by the extra pixel margin
+	                m_clip.expand(pixel);
+	                
+	                // set the transform, rendering keys, etc
+	                prepareGraphics(g2D);
+	                
+	                // now set the actual rendering clip
+	                m_rclip.setFrameFromDiagonal(
+	                        m_clip.getMinX(), m_clip.getMinY(), 
+	                        m_clip.getMaxX(), m_clip.getMaxY());
+	                g2D.setClip(m_rclip);
+	                
+	                // finally, we want to clear the region we'll redraw. we clear
+	                // a slightly larger area than the clip. if we don't do this,
+	                // we sometimes get rendering artifacts, possibly due to
+	                // scaling mismatches in the Java2D implementation
+	                m_rclip.setFrameFromDiagonal(
+	                        m_clip.getMinX()-pixel, m_clip.getMinY()-pixel,
+	                        m_clip.getMaxX()+pixel, m_clip.getMaxY()+pixel);
+	
+	            } else {
+	                // set the background region to clear
+	                m_rclip.setFrame(m_screen.getMinX(),  m_screen.getMinY(),
+	                                 m_screen.getWidth(), m_screen.getHeight());
+	                
+	                // set the item clip to the current screen
+	                m_clip.setClip(m_screen);
+	                
+	                // set the transform, rendering keys, etc
+	                prepareGraphics(g2D);
+	            }
+	
+	            // now clear the region
+	            clearRegion(g2D, m_rclip);            
+	            
+	            // -- render ----------------------------
+	            // the actual rendering  loop
+	            
+	            // copy current item bounds into m_rclip, reset item bounds
+	            getItemBounds(m_rclip);
+	            m_bounds.reset();
+	            
+	            // fill the rendering and picking queues
+	            m_queue.clear();   // clear the queue
+	            Iterator items = m_vis.items(m_predicate);
+	            for ( m_visibleCount=0; items.hasNext(); ++m_visibleCount ) {
+	                VisualItem item = (VisualItem)items.next();
+	                Rectangle2D bounds = item.getBounds();
+	                m_bounds.union(bounds); // add to item bounds
+	                
+	                if ( m_clip.intersects(bounds, pixel) )
+	                    m_queue.addToRenderQueue(item);
+	                if ( item.isInteractive() )
+	                    m_queue.addToPickingQueue(item);
+	            }
+	            
+	            // sort the rendering queue
+	            m_queue.sortRenderQueue();
+	            
+	            // render each visual item
+	            for ( int i=0; i<m_queue.rsize; ++i ) {
+	                m_queue.ritems[i].render(g2D);
+	            }
+	            
+	            // no more damage so reset the clip
+	            if ( m_damageRedraw )
+	                m_clip.reset();
+	            
+	            // fire bounds change, if appropriate
+	            checkItemBoundsChanged(m_rclip);
+	            
+	        }}
+    	} // end synchronized block
     }
     
     /**
